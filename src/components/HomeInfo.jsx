@@ -21,20 +21,20 @@ const renserContent = {
          neo-brutalism-blue py-4 px-8 text-white mx-5'>
             Hi, I am <span className="font-semibold">Shivansh</span>👋
             <br/>
-            A DataScientist from India.
-            <h5 className="text-sm">Use Arrow keys to explore the island</h5>
+            A Data Scientist based in India, and I also work on a freelance basis.
+            <h5 className="text-sm">Use Arrow keys to explore the island <br />Press the sound button below for more fun!</h5>
          </h1>
     ),
     2: (
         <InfoBox
-            text="Curious about the impact? Projects"
+            text="Explore my latest completed projects. For more visit my github."
             link="/projects"
             btnText="See my Projects"
         />
         ),
         3: (
             <InfoBox
-                text="Worked with many companies and gained a tons of skills"
+                text="Contributed in opensource projects and also working as a freelancer."
                 link="/about"
                 btnText="Learn More"
             />

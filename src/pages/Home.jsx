@@ -20,7 +20,7 @@ const Home = () => {
   const [ isRotating, setIsRotating ] = useState(false)
   const [currentStage, setCurrentStage] = useState(1)
 
-  const [isPlayingMusic, setIsPlayingMusic] = useState(true)
+  const [isPlayingMusic, setIsPlayingMusic] = useState(false)
 
   //This sate is for music
   useEffect(() => {

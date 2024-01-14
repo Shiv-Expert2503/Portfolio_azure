@@ -12,7 +12,7 @@ const Projects = () => {
       </h1>
 
       <div className='mt-5 flex flex-col gap-3 text-slate-500'>
-        <p>I've embarked on numerous projects throughout the years, but these are the ones I had closest to my heart. Many of them are open-source.</p>
+        <p>I've embarked on numerous projects throughout the years, but these are the ones I had closest to my heart. Many of them are open-source and some of them have working link.</p>
       </div>
 
 
@@ -35,7 +35,7 @@ const Projects = () => {
                 {project.description}
               </p>
               <div className='mt-5 flex items-center gap-2 font-poppins'>
-                <Link to={project.link} target='_blank' rel='noopener noreferrer' className='font-semibold text-blue-600'>Github Link</Link>
+                <Link to={project.link} target='_blank' rel='noopener noreferrer' className='font-semibold text-blue-600'>Link</Link>
                 <img src={arrow} alt="arrow" className='w-4 h-4 object-contain' />
               </div>
 
