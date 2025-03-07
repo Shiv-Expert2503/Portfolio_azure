@@ -21,7 +21,7 @@ const renserContent = {
          neo-brutalism-blue py-4 px-8 text-white mx-5'>
             Hi, I am <span className="font-semibold">Shivansh</span>👋
             <br/>
-            A Data Scientist based in India, and I also work on a freelance basis.
+            A Data Scientist and I also work on a freelance basis.
             <h5 className="text-sm">Use Arrow keys to explore the island <br />Press the sound button below for more fun!</h5>
          </h1>
     ),
@@ -34,7 +34,7 @@ const renserContent = {
         ),
         3: (
             <InfoBox
-                text="Contributed in opensource projects and also working as a freelancer."
+                text="Worked for startups and also a freelancer."
                 link="/about"
                 btnText="Learn More"
             />
