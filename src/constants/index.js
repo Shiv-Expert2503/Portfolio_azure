@@ -260,10 +260,13 @@ export const projects = [
     name: "1. Self-Adapting AI Solver for Physics Simulation",
     tags: ['SciML', 'PINNs', 'PyTorch', 'Adaptive Sampling', 'Quassi-Newton Optimizer'],
     oneLiner: "An intelligent AI solver that adapts its training to solve complex physics problems with higher accuracy and less computation.",
+    // description: [ // Using an array for bullet points
+    //     "Built a foundational PINN from scratch to solve the 1D Heat Equation, validating it against the analytical solution with an MSE of [e.g., 10^-4].",
+    //     "Engineered a Residual-Based Adaptive Sampling (RBS) algorithm that forces the AI to focus on areas of high error, dynamically re-allocating training points.",
+    //     "This intelligent approach achieved target accuracy using [e.g., 40%] fewer points and reduced training time by [e.g., 30%], demonstrating a leap in efficiency."
+    // ],
     description: [ // Using an array for bullet points
-        "Built a foundational PINN from scratch to solve the 1D Heat Equation, validating it against the analytical solution with an MSE of [e.g., 10^-4].",
-        "Engineered a Residual-Based Adaptive Sampling (RBS) algorithm that forces the AI to focus on areas of high error, dynamically re-allocating training points.",
-        "This intelligent approach achieved target accuracy using [e.g., 40%] fewer points and reduced training time by [e.g., 30%], demonstrating a leap in efficiency."
+        ""
     ],
     links: {
       github: "https://github.com/your-repo/pinn-adaptive",
