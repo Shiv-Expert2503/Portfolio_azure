@@ -2,12 +2,12 @@ import { meshBounds, useAnimations } from '@react-three/drei'
 import {useEffect, useRef} from 'react'
 import { useGLTF } from '@react-three/drei'
 
-import planeScene from '../assets/3d/plane.glb'
+// import planeScene from '../assets/3d/plane.glb'
 
 const Plane = ({ isRotating, ...props}) => {
 
     const ref = useRef();
-    const {scene, animations} = useGLTF(planeScene)
+    const {scene, animations} = useGLTF('models/plane_blender/plane.gltf'); // <-- Use the correct path to your GLTF file
     const { actions } = useAnimations(animations, ref)
 
     useEffect(() => {

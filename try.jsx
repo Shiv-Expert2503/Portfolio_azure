@@ -183,4 +183,3 @@ const islandRef = useRef();
       />
     </a.group>
   );
-}

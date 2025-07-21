@@ -21,11 +21,9 @@ const About = () => {
       <div className="mt-5 flex flex-col gap-3 text-slate-500">
         <p>
           As a budding Data Scientist, I
-          developed and deployed machine learning models using Scikit-learn and
-          TensorFlow, optimizing model performance for real-world applications.
-          My primary interest lies in Computer Vision and CoreML, and I have
-          designed and implemented cloud-based data pipelines using Azure and
-          AWS to enhance data scalability and reliability.
+          developed and deployed machine learning models using Scikit-learn,
+          TensorFlow, and PyTorch. My expertise extends to data preprocessing,
+          feature engineering, and optimizing model performance for real-world applications. I am a "T-shaped" engineer: deep expertise in one area (Scientific ML) with a strong breadth of practical skills (end-to-end app development).
         </p>
 
         {/* <p>And there is one thing for you as well! You can also contribute to my portfolio by letting me know if I am the right person you need. I look forward to the opportunity to collaborate with you and after contributing with you, your status will be displayed down below. It's beneficial to both of us. You will get your work done, and I will get my portfolio bigger! 😄</p> */}

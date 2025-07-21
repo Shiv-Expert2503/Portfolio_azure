@@ -6,6 +6,8 @@ import Loader from '../components/Loader'
 import useAlert from '../hooks/useAlert'
 import Alert from '../components/Alert'
 
+
+
 const Contact = () => {
 
   const fromRef = useRef(null);
@@ -49,7 +51,7 @@ const Contact = () => {
           hideAlert();
           setCurrentAnimation('idle');
           setForm({name: '', email: '', message: ''});   
-        }, [3000]);
+        }, 3000);
 
         
       }).catch((error) => {
