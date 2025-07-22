@@ -1,15 +1,44 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+// import React from 'react'
+// import { Link } from 'react-router-dom'
 
+
+// const CTA = () => {
+//   return (
+//     <section className='cta'> 
+//         <p className='cta-text'>Interested in Collaborating? <br className='sm:block hidden'/>
+//         I'm actively seeking opportunities to apply my skills in Scientific Machine Learning and MLOps to solve challenging problems. If my work resonates with you, I'd love to connect.</p>
+//         <Link to="/contact" className='btn'>Contact</Link>
+//     </section>
+//   )
+// }
+
+// export default CTA
+
+
+
+// updated for the new footer
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const CTA = () => {
   return (
-    <section className='cta'> 
-        <p className='cta-text'>Have a  project in mind? <br className='sm:block hidden'/>
-        Let's build something together!</p>
-        <Link to="/contact" className='btn'>Contact</Link>
-    </section>
-  )
-}
+    <section className='cta'>
+      {/* We'll wrap the text in a div to control its layout */}
+      <div className='flex-1 flex flex-col'>
+        <h3 className='cta-text'>
+          Interested in Collaborating?
+        </h3>
+        {/* Use a normal paragraph tag for the smaller text */}
+        <p className='mt-2 text-slate-500'>
+          I'm actively seeking opportunities to apply my skills in Scientific Machine Learning and MLOps to solve challenging problems. If my work resonates with you, I'd love to connect.
+        </p>
+      </div>
 
-export default CTA
+      <Link to="/contact" className='btn'>
+        Contact
+      </Link>
+    </section>
+  );
+};
+
+export default CTA;

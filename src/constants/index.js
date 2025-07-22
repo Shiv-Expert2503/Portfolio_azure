@@ -1,5 +1,5 @@
 import { k, gg, im, intern, upwork, linkdin, x } from "../assets/images";
-import { license, comparison, comparison2, combined_gifs, sensor1_comp, license_detect } from "../assets/visuals"; //Protfolio/src/assets/visuals
+import { license, comparison, comparison2, combined_gifs, sensor1_comp, license_detect, absolute_error, all_losses, solution_all, absolute_error_all_2d} from "../assets/visuals"; //Protfolio/src/assets/visuals
 // For now, I'll use placeholders.
 import {
     contact,
@@ -171,22 +171,14 @@ export const experiences = [
     //     "Submitted pull requests that were successfully merged, enhancing the functionality of core data processing and utility modules.",
     //   ],
     // },
-  {
-    title: "Want to Elevate Your Team with My Skills",
-    company_name: "Reach Out to Me!",
-    icon: im,
-    iconBg: "#FFE7A7",
-    date: "Present",
-    points: [
-      "Computer Vision: Proficient in developing and deploying computer vision models, including image classification, object detection, and semantic segmentation.",
-
-      "MLOps Proficiency: Experienced in hosting models using efficient pipelines, highlighting my commitment to best practices and contributing to the seamless development and deployment of machine learning solutions.",
-
-      "Continuous Learning: Actively engage in Kaggle Competitions, staying abreast of the latest trends and methodologies in the field, ensuring a forward-thinking approach to problem-solving.",
-
-      "If there's any kind of help you need in the above-mentioned fields, feel free to reach out to me! And please provide me with feedback.",
-    ],
-  },
+//   {
+//     title: "",
+//     company_name: "",
+//     icon: im,
+//     iconBg: "#FFE7A7",
+//     date: "Present",
+//     points: [],
+//   },
 ];
 
 // ----------------------------------SocialLinks
@@ -254,29 +246,28 @@ export const projects = [
   {
     // Tier 1: SciML & AI Research
     visuals: [
-        
-    ], // Pass in list if multiple videos else pass directly like g1
+        { type: 'image', src: all_losses },
+        { type: 'image', src: absolute_error },
+        { type: 'image', src: absolute_error_all_2d },
+        { type: 'image', src: solution_all }
+    ],
     theme: "",
     name: "1. Self-Adapting AI Solver for Physics Simulation",
     tags: ['SciML', 'PINNs', 'PyTorch', 'Adaptive Sampling', 'Quassi-Newton Optimizer'],
     oneLiner: "An intelligent AI solver that adapts its training to solve complex physics problems with higher accuracy and less computation.",
-    // description: [ // Using an array for bullet points
-    //     "Built a foundational PINN from scratch to solve the 1D Heat Equation, validating it against the analytical solution with an MSE of [e.g., 10^-4].",
-    //     "Engineered a Residual-Based Adaptive Sampling (RBS) algorithm that forces the AI to focus on areas of high error, dynamically re-allocating training points.",
-    //     "This intelligent approach achieved target accuracy using [e.g., 40%] fewer points and reduced training time by [e.g., 30%], demonstrating a leap in efficiency."
-    // ],
-    description: [ // Using an array for bullet points
-        ""
+    description: [
+        "Built and validated a foundational PINN from scratch using an Adam optimizer, achieving a final Mean Squared Error of 1.55e-06 against the analytical solution.",
+        "Systematically compared this baseline against two advanced training strategies: a Residual-Based Adaptive Sampling (RBS) algorithm and a hybrid optimizer combining Adam with a Quasi-Newton method (L-BFGS).",
+        "The hybrid Adam + L-BFGS approach proved to be the superior strategy, reducing the final MSE by ~80% to 3.11e-07, demonstrating the power of second-order optimization for fine-tuning",
     ],
     links: {
-      github: "https://github.com/your-repo/pinn-adaptive",
+      github: "https://github.com/Shiv-Expert2503/PINNs",
     //   analysis: "https://your-blog.com/pinn-analysis" // Link to your blog post
     }
   },
   {
     // visuals: [comparison, comparison2, combined_gifs], // Placeholder
     visuals: [
-      // This is now a video
       { type: 'image', src: comparison},
       { type: 'image', src: comparison2 },
       { type: 'image', src: combined_gifs }
