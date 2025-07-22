@@ -1,1 +1,0 @@
-import{r as a,a as i,d as l,j as n}from"./index-OwZ0kvJf.js";const f=({isRotating:s,...o})=>{const t=a.useRef(),{scene:r,animations:c}=i("models/plane_blender/plane.gltf"),{actions:e}=l(c,t);return a.useEffect(()=>{s?e["Take 001"].play():e["Take 001"].stop()},[e,s]),n.jsx("mesh",{...o,ref:t,children:n.jsx("primitive",{object:r})})};export{f as default};
