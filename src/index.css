@@ -11,6 +11,7 @@
 
 body {
   font-family: "Work Sans", sans-serif;
+  background-color: #000000;
 }
 
 body:has(.card[data-color="blue"]:hover) {
@@ -27,12 +28,12 @@ body:has(.card[data-color="green"]:hover) {
   }
 
   .head-text {
-    @apply sm:text-5xl text-3xl font-semibold sm:leading-snug font-poppins;
-  }
+    @apply sm:text-5xl text-3xl font-semibold sm:leading-snug font-poppins text-white; /* <-- Add text-white */
+}
 
   .subhead-text {
-    @apply font-semibold sm:text-3xl text-xl relative font-poppins;
-  }
+  @apply font-semibold sm:text-3xl text-xl relative font-poppins text-white;
+}
 
   .blue-gradient_text {
     @apply bg-gradient-to-r from-[#00c6ff] to-[#0072ff] bg-clip-text text-transparent;
@@ -50,9 +51,13 @@ body:has(.card[data-color="green"]:hover) {
     @apply text-white bg-gradient-to-r from-[#00c6ff] to-[#0072ff] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center;
   }
 
-  .header {
+  /* .header {
     @apply flex justify-between items-center sm:px-16 px-8 py-4 max-w-5xl mx-auto absolute top-0 bg-transparent z-10 right-0 left-0;
-  }
+  } */
+  
+  .header {
+  @apply flex justify-between items-center sm:px-16 px-8 py-4 max-w-5xl mx-auto sticky top-0 bg-transparent z-50 right-0 left-0;
+}
 
   .footer {
     @apply max-w-5xl mx-auto sm:px-16 pb-6 px-8 flex flex-col gap-7;
@@ -89,9 +94,9 @@ body:has(.card[data-color="green"]:hover) {
 
 .logo {
   border-radius: 8.889px;
-  background: #fff;
-  box-shadow: 0px 10px 35px -4px rgba(67, 83, 255, 0.15),
-    0px 1.5px 4px -1px rgba(67, 83, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .block-container {
@@ -180,4 +185,56 @@ body:has(.card[data-color="green"]:hover) {
   border: #fff;
   box-shadow: 0.6vmin 0.6vmin #fff, 1vmin 1vmin #d2e4ff, 1vmin 1vmin #d2e4ff,
     0.65vmin 1vmin #d2e4ff, 1vmin 0.65vmin #d2e4ff;
+}
+
+
+
+
+/* New css for 3d mesh */
+
+.hero-content {
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-white z-10;
+}
+
+.hero-title {
+    @apply text-4xl sm:text-6xl font-bold;
+    text-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero-subtitle {
+    @apply mt-4 text-lg sm:text-xl font-light;
+    text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.scroll-down-arrow {
+    @apply absolute bottom-20 left-1/2 -translate-x-1/2 text-white text-3xl z-10; /* Changed bottom-10 to bottom-20 */
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    40% {
+        transform: translateX(-50%) translateY(-20px);
+    }
+    60% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+}
+/* Add this class to your @layer utilities */
+.about-section {
+    @apply sm:p-16 pb-12 px-8;
+}
+
+/* --- Add this for final dark theme text color fixes --- */
+
+/* This will make the main project titles on the Projects page white */
+.projects-container .project-title {
+  color: white;
+}
+
+/* This makes the "My Projects" title on the homepage white */
+.about-section .subhead-text {
+    color: white;
 }

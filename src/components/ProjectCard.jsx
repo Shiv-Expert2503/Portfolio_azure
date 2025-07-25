@@ -584,7 +584,7 @@ const ProjectCard = ({ project, inView }) => {
 
       {/* The text content section stays the same */}
       <div className='mt-5 flex flex-col'>
-          <h4 className='text-2xl font-poppins font-semibold'>{project.name}</h4>
+          <h4 className='text-2xl font-poppins font-semibold text-white'>{project.name}</h4>
           <div className='mt-2 flex flex-wrap gap-2'>
               {project.tags.map((tag) => (
                   <span key={tag} className='text-sm text-blue-500 bg-blue-500/10 px-2 py-1 rounded-full'>
@@ -609,7 +609,7 @@ const ProjectCard = ({ project, inView }) => {
               {project.links.demo && <a href={project.links.demo} target='_blank' rel='noopener noreferrer' className='font-semibold text-green-600 hover:underline'>Live Demo</a>}
               {project.links.analysis && <a href={project.links.analysis} target='_blank' rel='noopener noreferrer' className='font-semibold text-purple-600 hover:underline'>Read Analysis</a>}
               
-              <button onClick={() => setExpanded(!expanded)} className='text-sm text-gray-600 hover:text-black ml-auto'>
+              <button onClick={() => setExpanded(!expanded)} className='text-sm text-gray-400 hover:text-blue-400 ml-auto'>
                   {expanded ? 'Hide Details ▲' : 'Project Details ▼'}
               </button>
           </div>

@@ -30,7 +30,7 @@ const CTA = () => {
         </h3>
         {/* Use a normal paragraph tag for the smaller text */}
         <p className='mt-2 text-slate-500'>
-          I'm actively seeking opportunities to apply my skills in Scientific Machine Learning and MLOps to solve challenging problems. If my work resonates with you, I'd love to connect.
+          Want this level of expertise for your project? If my work resonates with you, I'd love to connect.
         </p>
       </div>
 
