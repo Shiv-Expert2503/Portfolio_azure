@@ -2054,6 +2054,7 @@ const generateQiPoints = (numPoints) => {
 // `;
 
 const vertexShader = `
+  precision highp float;
   attribute vec3 targetPosition1, targetPosition2, targetPosition3, targetPosition4, targetPosition5, targetPosition6,
                  targetPosition7, targetPosition8, targetPosition9, targetPosition10, targetPosition11;
   uniform float progress, currentShape, size;
@@ -2110,6 +2111,7 @@ const vertexShader = `
 `;
 
 const fragmentShader = `
+  precision highp float;
   uniform vec3 color1, color2;
   uniform float progress;
   void main() {
