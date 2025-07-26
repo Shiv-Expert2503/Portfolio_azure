@@ -2005,67 +2005,169 @@ const generateQiPoints = (numPoints) => {
   return new Float32Array(points);
 };
 
-
-// const vertexShader = `
-//   attribute vec3 targetPosition1, targetPosition2, targetPosition3, targetPosition4, targetPosition5, targetPosition6,
-//                  targetPosition7, targetPosition8, targetPosition9, targetPosition10, targetPosition11, targetPosition12;
-//   uniform float progress, currentShape, size;
-//   uniform vec2 uMouse; // <-- NEW: The mouse position uniform
-
-//   void main() {
-//     vec3 pos1, pos2;
-//     if (currentShape < 1.0) { pos1 = position; pos2 = targetPosition1; }
-//     else if (currentShape < 2.0) { pos1 = targetPosition1; pos2 = targetPosition2; }
-//     else if (currentShape < 3.0) { pos1 = targetPosition2; pos2 = targetPosition3; }
-//     else if (currentShape < 4.0) { pos1 = targetPosition3; pos2 = targetPosition4; }
-//     else if (currentShape < 5.0) { pos1 = targetPosition4; pos2 = targetPosition5; }
-//     else if (currentShape < 6.0) { pos1 = targetPosition5; pos2 = targetPosition6; }
-//     else if (currentShape < 7.0) { pos1 = targetPosition6; pos2 = targetPosition7; }
-//     else if (currentShape < 8.0) { pos1 = targetPosition7; pos2 = targetPosition8; }
-//     else if (currentShape < 9.0) { pos1 = targetPosition8; pos2 = targetPosition9; }
-//     else if (currentShape < 10.0) { pos1 = targetPosition9; pos2 = targetPosition10; }
-//     else if (currentShape < 11.0) { pos1 = targetPosition10; pos2 = targetPosition11; }
-//     else if (currentShape < 12.0) { pos1 = targetPosition11; pos2 = targetPosition12; }
-//     else { pos1 = targetPosition12; pos2 = position; }
+const generateRosslerPoints = (numPoints) => {
+  const points = [];
+  const scale = 0.1;
+  const dt = 0.02;
+  let x = 1, y = 1, z = 1;
+  const a = 0.2, b = 0.2, c = 5.7;
+  for (let i = 0; i < numPoints; i++) {
+    const dx = (-y - z) * dt;
+    const dy = (x + a * y) * dt;
+    const dz = (b + z * (x - c)) * dt;
+    x += dx; y += dy; z += dz;
+    points.push(x * scale, y * scale, z * scale);
+  }
+  return new Float32Array(points);
+};
 
 
-//     // First, calculate the morphed position
-//     vec3 finalPosition = mix(pos1, pos2, progress);
+// A "Seashell" or Nautilus Shape - Based on a 3D logarithmic spiral
+const generateSeashellPoints = (numPoints) => {
+    const points = [];
+    const scale = 0.1;
+    for (let i = 0; i < numPoints; i++) {
+        const theta = Math.random() * 8 * Math.PI; // How many turns
+        const phi = Math.random() * 2 * Math.PI;   // Angle around the tube
+        const radius = 0.2 * Math.exp(0.1 * theta); // Growing radius of the main spiral
+        const tubeRadius = 0.05 * Math.exp(0.08 * theta); // Growing radius of the tube
+        
+        const r = radius + tubeRadius * Math.cos(phi);
+        const x = scale * r * Math.cos(theta);
+        const y = scale * r * Math.sin(theta);
+        const z = scale * tubeRadius * Math.sin(phi);
+        points.push(x, y, z);
+    }
+    return new Float32Array(points);
+};
 
-//     // --- NEW: Add the mouse interaction effect ---
-//     // Calculate the distance between the particle and the mouse
-//     float dist = distance(finalPosition.xy, uMouse);
-//     float radius = 0.3; // The radius of influence for the mouse
-    
-//     // If the particle is within the radius, apply a force
-//     if (dist < radius) {
-//         // The force is strongest at the center and fades to zero
-//         float force = (radius - dist) / radius;
-//         // Push the particle away from the mouse in the Z direction
-//         finalPosition.z += force * 0.2; // 0.2 is the strength of the push
-//     }
-//     // --- END of mouse effect ---
 
 
-//     vec4 mvPosition = modelViewMatrix * vec4(finalPosition, 1.0);
-//     gl_PointSize = size;
-//     gl_Position = projectionMatrix * mvPosition;
-//   }
-// `;
+const generateCliffordPoints = (n) => {
+  const pts = [];
+  const a = -1.4, b = 1.6, c = 1.0, d = 0.7;   // classic “butterfly” params
+  let x = 0.1, y = 0.1;
+  const s = 0.55;                              // scene scale
+  for (let i = 0; i < n; i++) {
+    const x1 = Math.sin(a * y) + c * Math.cos(a * x);
+    const y1 = Math.sin(b * x) + d * Math.cos(b * y);
+    x = x1; y = y1;
+    pts.push(x * s, y * s, (Math.random() - .5) * .05);
+  }
+  return new Float32Array(pts);
+};
+
+
+
+const generateSuperformula = (n, m = 7, a=1, b=1, n1=0.3, n2=0.3, n3=0.3) => {
+  const pts = [];
+  const R = 0.5;
+  for (let i = 0; i < n; i++) {
+    const φ = (i / n) * Math.PI * 2;
+    const r = Math.pow(
+      Math.pow(Math.abs(Math.cos(m*φ/4)/a), n2) +
+      Math.pow(Math.abs(Math.sin(m*φ/4)/b), n3),
+    -1/n1);
+    const x = R * r * Math.cos(φ);
+    const y = R * r * Math.sin(φ);
+    pts.push(x, y, (Math.random()-.5)*.1);
+  }
+  return new Float32Array(pts);
+};
+
+
+const generateBarthPoints = (n) => {
+  const pts = [];
+  const φ = (1 + Math.sqrt(5)) / 2;
+  const scale = 0.8;
+  for (let i = 0; i < n; i++) {
+    const θ = (Math.random()-0.5)*Math.PI;
+    const ψ = Math.random()*2*Math.PI;
+    const r = 1.4;                       // sampling radius
+    const x = r*Math.cosθ*Math.cosψ;
+    const y = r*Math.cosθ*Math.sinψ;
+    const z = r*Math.sinθ;
+    // evaluate polynomial ≈0 surface
+    const F = ( (φ*φ)*(x*x) - y*y ) * ( (φ*φ)*(y*y) - z*z ) *
+              ( (φ*φ)*(z*z) - x*x ) + 2*(x*y*z) - ( (φ+1) );
+    if (Math.abs(F) < 0.3) pts.push(x*scale, y*scale, z*scale);
+  }
+  return new Float32Array(pts);
+};
+
+const generateDuffing = (n) => {
+  const pts = [];
+  let x = 1, y = 0;
+  const a = -1, b = 1, δ = 0.3, γ = 0.37, ω = 1.4;
+  const dt = 0.02, scale = 0.25;
+  for (let i = 0; i < n; i++) {
+    const t = i*dt;
+    const dx = y * dt;
+    const dy = (-δ*y - a*x - b*x*x*x + γ*Math.cos(ω*t)) * dt;
+    x += dx; y += dy;
+    pts.push(x*scale, y*scale, (Math.random()-.5)*.05);
+  }
+  return new Float32Array(pts);
+};
+
+const generateRennard = (n) => {
+  const pts = [];
+  const scale = 0.4;
+  for (let i = 0; i < n; i++) {
+    const t = Math.random()*2*Math.PI;
+    const r = Math.sin(4*t) + Math.cos(7*t);
+    const x = scale*r*Math.cos(t);
+    const y = scale*r*Math.sin(t);
+    pts.push(x, y, (Math.random()-.5)*.1);
+  }
+  return new Float32Array(pts);
+};
+
+const generateViviani = (n) => {
+  const pts = [];
+  const R = 1, a = R/2, s = 0.5;
+  for (let i = 0; i < n; i++) {
+    const t = (i/n)*2*Math.PI;
+    const x = R*(1 + Math.cos(t));
+    const y = R*Math.sin(t);
+    const z = 2*a*Math.sin(t/2);
+    pts.push(x*s, y*s, z*s);
+  }
+  return new Float32Array(pts);
+};
+
+
+const generateTornado = (n) => {
+  const pts = [];
+  const turns = 5, s = 0.35;
+  for (let i = 0; i < n; i++) {
+    const t = (i/n)*2*Math.PI*turns;
+    const k = 3;                         // number of cusps
+    const r = 0.4 + 0.02*t;              // growing radius
+    const x = (r)*(Math.cos(t) + Math.cos(k*t)/k);
+    const y = (r)*(Math.sin(t) - Math.sin(k*t)/k);
+    const z = 0.05*t;
+    pts.push(x*s, y*s, z*s);
+  }
+  return new Float32Array(pts);
+};
+
 
 const vertexShader = `
   precision highp float;
+  // We have 1 starting position + 13 targets = 14 shapes.
+  // So we only need targetPosition1 to targetPosition13.
   attribute vec3 targetPosition1, targetPosition2, targetPosition3, targetPosition4, targetPosition5, targetPosition6,
-                 targetPosition7, targetPosition8, targetPosition9, targetPosition10, targetPosition11;
+                 targetPosition7, targetPosition8, targetPosition9, targetPosition10, targetPosition11, targetPosition12, targetPosition13;
   uniform float progress, currentShape, size;
   uniform vec2 uMouse;
 
-  // ✅ ADD THE SCALES ARRAY UNIFORM (The number must match the number of shapes)
-  uniform float uScales[13];
+  // The array size must match the number of shapes EXACTLY.
+  uniform float uScales[14]; // ✅ CHANGED to 14
 
   void main() {
     vec3 pos1, pos2;
-    // This part is the same
+    // We only go up to 13, since that's our last target attribute
     if (currentShape < 1.0) { pos1 = position; pos2 = targetPosition1; }
     else if (currentShape < 2.0) { pos1 = targetPosition1; pos2 = targetPosition2; }
     else if (currentShape < 3.0) { pos1 = targetPosition2; pos2 = targetPosition3; }
@@ -2077,12 +2179,14 @@ const vertexShader = `
     else if (currentShape < 9.0) { pos1 = targetPosition8; pos2 = targetPosition9; }
     else if (currentShape < 10.0) { pos1 = targetPosition9; pos2 = targetPosition10; }
     else if (currentShape < 11.0) { pos1 = targetPosition10; pos2 = targetPosition11; }
-    else { pos1 = targetPosition11; pos2 = position; }
+    else if (currentShape < 12.0) { pos1 = targetPosition11; pos2 = targetPosition12; }
+    else if (currentShape < 13.0) { pos1 = targetPosition12; pos2 = targetPosition13; }
+    else { pos1 = targetPosition13; pos2 = position; } // ✅ Last shape transitions back to first
 
-    // --- ✨ NEW SCALING LOGIC ---
     // Get the integer index for the current and next shapes
     int index1 = int(currentShape);
-    int index2 = (index1 + 1) % 12; // Use modulo to wrap around from 11 to 0
+    // Use modulo 14 to wrap around correctly
+    int index2 = (index1 + 1) % 14; // ✅ CHANGED to 14
 
     // Look up the scales from our uniform array
     float scale1 = uScales[index1];
@@ -2122,13 +2226,36 @@ const fragmentShader = `
 `;
 
 
-// sine
+        // { name: "SineWave", type: "procedural", generator: generateSineWavePoints, color: new THREE.Color('#4d00ff') },
+        // { name: "Interference", type: "procedural", generator: generateInterferencePoints, color: new THREE.Color('#ff00ff'), scale: 1.5 },
+        // { name: "ThomasPoint", type: "procedural", generator: generateThomasPoints, color: new THREE.Color('#ff0055'), position: [0, -1, 0] },        
+        // { name: "Rossler", type: "procedural", generator: generateRosslerPoints, color: new THREE.Color('#ff1493'), scale: 1.5 },
+        // { name: "Seashell", type: "procedural", generator: generateSeashellPoints, color: new THREE.Color('#ff4500'), scale: 4 },
+        // { name: "Lorenz", type: "procedural", generator: generateLorenzPoints, color: new THREE.Color('#ff4500'), scale: 1.5, position: [0, -0.5, 0] },
+        // { name: "Chen", type: "procedural", generator: generateChenPoints, color: new THREE.Color('#ff7f00') },
+        // { name: "MaurerRose", type: "procedural", generator: generateMaurerRosePoints, color: new THREE.Color('#ffff00'), scale: 2 },
+        // { name: "Aizawa", type: "procedural", generator: generateAizawaPoints, color: new THREE.Color('#9370db'), scale: 3 },
+        // { name: "Sierpinski", type: "procedural", generator: generateSierpinskiPoints, color: new THREE.Color('#00ff00') },
+        // { name: "LuChen", type: "procedural", generator: generateLuChenPoints, color: new THREE.Color('#00bfff'), scale: 1.5 },
+        // { name: "Dadras", type: "procedural", generator: generateDadrasPoints, color: new THREE.Color('#7B68EE') , scale: 1.5},
+        // { name: "Qi", type: "procedural", generator: generateQiPoints, color: new THREE.Color('#FF69B4')},
+        // { name: "Superformula", type: "procedural", generator: generateSuperformula, color: new THREE.Color('#8a2be2'), scale: 3 },
+
+
+
+
+
+        // Low priority shapes to add later
+        // { name: "Clifford", type: "procedural", generator: generateCliffordPoints, color: new THREE.Color('#00ff7f') },
+
+
+
 //
 // --- 3. Main React Component ---
 const ParticleScene = ({ setCurrentStage }) => {
     const pointsRef = useRef();
     const [allPositions, setAllPositions] = useState([]);
-    const numPoints = 45000;
+    const numPoints = 150000;
 
     // This is your main control panel. Add or remove shapes and colors here.
     // const shapes = useMemo(() => [
@@ -2147,20 +2274,27 @@ const ParticleScene = ({ setCurrentStage }) => {
     // ], []);
       const shapes = useMemo(() => [
         // --- UPDATED NAMES AND COLORS FOR THE FIRST 10 ---
-        { name: "Neuron", type: "bin", path: "/brain_normalized_150k.bin", color: new THREE.Color('#00ffff') },
-        { name: "Brain", type: "procedural", generator: generateSineWavePoints, color: new THREE.Color('#4d00ff') },
-        { name: "SineWave", type: "procedural", generator: generateInterferencePoints, color: new THREE.Color('#ff00ff'), scale: 1.5 },
-        { name: "TangentWave", type: "procedural", generator: generateThomasPoints, color: new THREE.Color('#ff0055'), position: [0, -1, 0] },
-        { name: "Lorenz", type: "procedural", generator: generateLorenzPoints, color: new THREE.Color('#ff4500'), scale: 1.5, position: [0, -0.5, 0] },
-        { name: "Torus", type: "procedural", generator: generateChenPoints, color: new THREE.Color('#ff7f00') },
-        { name: "Mobius", type: "procedural", generator: generateMaurerRosePoints, color: new THREE.Color('#ffff00'), scale: 2 },
-        { name: "Butterfly", type: "procedural", generator: generateAizawaPoints, color: new THREE.Color('#9370db'), scale: 3 },
-        { name: "MaurerRose", type: "procedural", generator: generateSierpinskiPoints, color: new THREE.Color('#00ff00') },
-        { name: "DeepSkyBlueShape", type: "procedural", generator: generateLuChenPoints, color: new THREE.Color('#00bfff'), scale: 1.5 },
+        // { name: "Neuron", type: "bin", path: "/brain_normalized_150k.bin", color: new THREE.Color('#00ffff') },
+        { name: "SineWave", type: "procedural", generator: generateSineWavePoints, color: new THREE.Color('#4d00ff') },
+        { name: "Interference", type: "procedural", generator: generateInterferencePoints, color: new THREE.Color('#ff00ff'), scale: 1.5 },
+        { name: "Chen", type: "procedural", generator: generateChenPoints, color: new THREE.Color('#ff7f00') },
         
-        // --- REST ARE KEPT AS IS ---
+        
+        { name: "Rennard", type: "procedural", generator: generateRennard, color: new THREE.Color('#00ff7f'), scale: 1.5 },
+        { name: "Clifford", type: "procedural", generator: generateCliffordPoints, color: new THREE.Color('#00ff7f'), position:[-10, 0, 0] },
+        { name: "Superformula", type: "procedural", generator: generateSuperformula, color: new THREE.Color('#8a2be2'), scale: 3 },
+        { name: "Seashell", type: "procedural", generator: generateSeashellPoints, color: new THREE.Color('#ff4500'), scale: 4 },
+        
+        { name: "Lorenz", type: "procedural", generator: generateLorenzPoints, color: new THREE.Color('#ff4500'), scale: 1.5, position: [0, -0.5, 0] },
+        { name: "ThomasPoint", type: "procedural", generator: generateThomasPoints, color: new THREE.Color('#ff0055'), position: [0, -1, 0] },
+        { name: "MaurerRose", type: "procedural", generator: generateMaurerRosePoints, color: new THREE.Color('#00bfff'), scale: 2 },
+        { name: "Aizawa", type: "procedural", generator: generateAizawaPoints, color: new THREE.Color('#9370db'), scale: 3, position: [-3, 0, 0] },
+        { name: "Sierpinski", type: "procedural", generator: generateSierpinskiPoints, color: new THREE.Color('#00ff00') },
+        { name: "LuChen", type: "procedural", generator: generateLuChenPoints, color: new THREE.Color('#ffff00'), scale: 1.5 },
         { name: "Dadras", type: "procedural", generator: generateDadrasPoints, color: new THREE.Color('#7B68EE') , scale: 1.5},
-        { name: "Cardioid", type: "procedural", generator: generateQiPoints, color: new THREE.Color('#FF69B4')}
+        // { name: "Qi", type: "procedural", generator: generateQiPoints, color: new THREE.Color('#FF69B4')},
+
+        // --- REST ARE KEPT AS IS ---
         ], []);
 
     useEffect(() => {
@@ -2242,7 +2376,9 @@ const ParticleScene = ({ setCurrentStage }) => {
                 <bufferAttribute attach="attributes-targetPosition9" count={allPositions[9].length / 3} array={allPositions[9]} itemSize={3}/>
                 <bufferAttribute attach="attributes-targetPosition10" count={allPositions[10].length / 3} array={allPositions[10]} itemSize={3}/>
                 <bufferAttribute attach="attributes-targetPosition11" count={allPositions[11].length / 3} array={allPositions[11]} itemSize={3}/>
-                {/* <bufferAttribute attach="attributes-targetPosition12" count={allPositions[12].length / 3} array={allPositions[12]} itemSize={3}/> */}
+                <bufferAttribute attach="attributes-targetPosition12" count={allPositions[12].length / 3} array={allPositions[12]} itemSize={3}/>
+                <bufferAttribute attach="attributes-targetPosition13" count={allPositions[13].length / 3} array={allPositions[13]} itemSize={3}/>
+                {/* <bufferAttribute attach="attributes-targetPosition14" count={allPositions[14].length / 3} array={allPositions[14]} itemSize={3}/> */}
             </bufferGeometry>
             <shaderMaterial
                 attach="material"

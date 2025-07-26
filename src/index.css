@@ -238,3 +238,18 @@ body:has(.card[data-color="green"]:hover) {
 .about-section .subhead-text {
     color: white;
 }
+
+/* This will make the main page titles (like "My Projects", "Get in Touch") white */
+.head-text {
+    color: white !important;
+}
+
+/* This targets the individual project titles inside the cards on the Projects page */
+.project-card-title {
+    color: white !important;
+}
+
+/* This targets the labels on your Contact page */
+.contact-form-label {
+    color: white !important;
+}
