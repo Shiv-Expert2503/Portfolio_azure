@@ -25,7 +25,7 @@ const CTA = () => {
     <section className='cta'>
       {/* We'll wrap the text in a div to control its layout */}
       <div className='flex-1 flex flex-col'>
-        <h3 className='cta-text'>
+        <h3 className='cta-text' style={{ color: '#004ac0ff' }}>
           Interested in Collaborating?
         </h3>
         {/* Use a normal paragraph tag for the smaller text */}

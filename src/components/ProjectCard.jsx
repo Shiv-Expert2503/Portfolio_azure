@@ -592,10 +592,9 @@ const ProjectCard = ({ project, inView }) => {
                   </span>
               ))}
           </div>
-          <p className='mt-3 text-slate-500'>{project.oneLiner}</p>
-          
+          <p className='mt-3 text-slate-500 text-white/80'>{project.oneLiner}</p>
           {expanded && (
-              <div className='mt-4 text-slate-500'>
+              <div className='mt-4 text-slate-500 text-white/80'>
                   <ul className='list-disc ml-5 space-y-2'>
                       {project.description.map((point, index) => (
                           <li key={`project-point-${index}`}>{point}</li>

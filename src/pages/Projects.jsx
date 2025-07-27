@@ -367,7 +367,7 @@ const Projects = () => {
       <h1 className='head-text'>
         My <span className='blue-gradient_text font-semibold drop-shadow'>Projects</span>
       </h1>
-      <div className='mt-5 flex flex-col gap-3 text-slate-500'>
+      <div className='mt-5 flex flex-col gap-3 text-white/80'>
         <p>
           A curated selection of my work, from foundational research in Scientific
           Machine Learning (SciML) to the development of deployed, end-to-end

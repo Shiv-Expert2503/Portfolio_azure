@@ -253,3 +253,54 @@ body:has(.card[data-color="green"]:hover) {
 .contact-form-label {
     color: white !important;
 }
+/* 1. Set the default background for the entire app */
+main {
+  background-color: #000000;
+}
+
+/* 2. The Canvas is fixed to the viewport with a low z-index */
+.canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1; /* Sits just above the base background */
+}
+
+/* 3. The content is scrollable and sits on top of the canvas */
+.scroll-content {
+  position: relative;
+  z-index: 2; /* Sits on top of the canvas */
+}
+
+/* 4. ✅ BRING BACK THE GLASS PANEL and make it pass-through for the mouse */
+.max-container {
+  /* These are your glassmorphism styles */
+  background: rgba(20, 20, 30, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 4rem auto;
+
+  /* This tells the container itself to let the mouse pass through */
+  pointer-events: none;
+}
+
+/* 5. ✅ MAKE ONLY SPECIFIC CONTENT INTERACTIVE */
+/* This rule tells only specific, necessary elements inside your content 
+   to become "solid" to the mouse again. */
+.scroll-content a,
+.scroll-content button,
+.scroll-content input,
+.scroll-content textarea,
+.scroll-content p,
+.scroll-content h1,
+.scroll-content h3,
+.scroll-content h4,
+.scroll-content li,
+.scroll-content span,
+.scroll-content .block-container { /* This makes your skill icons clickable */
+  pointer-events: auto;
+}
