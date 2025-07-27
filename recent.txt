@@ -943,3 +943,118 @@ const generateChuaPoints = (numPoints) => {
   pointer-events: auto !important; /* ✅ Navbar must be clickable */
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const shapeDefinitions = useMemo(() => [
+        { name: "SineWave",               generator: generateSineWavePoints, color: new THREE.Color('#00ff00'), scale: getResponsiveScale(2, 2.5) , positions:[0,2,0]},
+        { name: "Lorenz",                 generator: generateLorenzPoints, color: new THREE.Color('#ff4500'), scale: getResponsiveScale(1.5, 1.5) },
+        { name: "Interference",           generator: generateInterferencePoints, color: new THREE.Color('#00ffff'), scale: getResponsiveScale(3.0, 5.0),  positions:[0,2,0] },
+        { name: "MaurerRose",             generator: generateMaurerRosePoints, color: new THREE.Color('#00bfff'), scale: getResponsiveScale(4.0, 4),  positions:[10,12,0] },
+        { name: "DiamondLattice", generator: generateDiamondLatticePoints, color: new THREE.Color('#ffffff'), scale: getResponsiveScale(5.0, 5.0) },
+        { name: "HexPacking", generator: generateHexPackingPoints, color: new THREE.Color('#fab1a0'), scale: getResponsiveScale(3.0, 3.0) },
+        { name: "Chen",                   generator: generateChenPoints, color: new THREE.Color('#ff7f00'), scale: getResponsiveScale(1.5, 1.75) },
+        { name: "Butterfly",              generator: generateButterflyPoints, color: new THREE.Color('#ff00ff'), scale: getResponsiveScale(3, 3) },
+        { name: "Torus Knot",             generator: generateTorusKnotPoints,         color: new THREE.Color('#1e90ff'), scale: getResponsiveScale(0.5, 1) },
+        { name: "Thomas' Attractor",      generator: generateThomasAttractorPoints,   color: new THREE.Color('#32cd32'), scale: getResponsiveScale(0.5, 0.5) },
+        { name: "Halvorsen Attractor",    generator: generateHalvorsenAttractorPoints,  color: new THREE.Color('#ff69b4'), scale: getResponsiveScale(0.1, 0.36) },
+        { name: "Double Helix",           generator: generateDoubleHelixPoints,       color: new THREE.Color('#fafad2'), scale: getResponsiveScale(0.5, 0.5) },
+        { name: "Aizawa Attractor",       generator: generateAizawaPoints,            color: new THREE.Color('#ff6347'), scale: getResponsiveScale(5, 7) },
+        { name: "Sphere",                 generator: generateSpherePoints,            color: new THREE.Color('#ffffff'), scale: getResponsiveScale(1.5, 2.1) },
+        { name: "Loxodrome",              generator: generateLoxodromePoints,         color: new THREE.Color('#afeeee'), scale: getResponsiveScale(5, 5) },
+        { name: "Dadras Attractor",       generator: generateDadrasAttractorPoints,   color: new THREE.Color('#dda0dd'), scale: getResponsiveScale(0.15, 0.15) },
+        { name: "Butterfly 3D",           generator: generateButterfly3DPoints,       color: new THREE.Color('#ba55d3'), scale: getResponsiveScale(0.3, 0.6) },
+        { name: "Viviani's Curve",        generator: generateVivianiPoints,           color: new THREE.Color('#98fb98'), scale: getResponsiveScale(0.7, 0.7) },
+        { name: "Rossler",                 generator: generateRosslerPoints, color: new THREE.Color('#ff1493'), scale: getResponsiveScale(2.0, 2.0) },
+        { name: "Chua",                    generator: generateChuaPoints, color: new THREE.Color('#ff4500'), scale: getResponsiveScale(5, 7) },
+        { name: "Julia3D",                 generator: generateJulia3DPoints, color: new THREE.Color('#9400d3'), scale: getResponsiveScale(2, 5) },
+
+        // 🌸 Parametric Masterpieces
+        { name: "Mobius",                   generator: generateMobiusPoints, color: new THREE.Color('#9370db'), scale: getResponsiveScale(3.0, 3) },
+        { name: "KleinBottle",              generator: generateKleinBottlePoints, color: new THREE.Color('#20b2aa'), scale: getResponsiveScale(1.2, 1.2) },
+        { name: "BoySurface",               generator: generateBoySurfacePoints, color: new THREE.Color('#8a2be2'), scale: getResponsiveScale(4.0, 4.5) },
+        { name: "DiniSurface",              generator: generateDiniSurfacePoints, color: new THREE.Color('#dc143c'), scale: getResponsiveScale(1.75, 3.0) },
+        { name: "HopfFibration",           generator: generateHopfFibrationPoints, color: new THREE.Color('#00ced1'), scale: getResponsiveScale(4.0, 4.0) },
+
+        // 🌺 Rose & Flower Curves
+        { name: "Rose7",                     generator: generateRose7Points, color: new THREE.Color('#ff69b4'), scale: getResponsiveScale(3.0, 4.0) },
+        { name: "Rhodonea",                  generator: generateRhodoneaPoints, color: new THREE.Color('#ff8c00'), scale: getResponsiveScale(2.0, 4.0) },
+
+        // 🧬 Nature-Inspired Curves
+        { name: "DNAHelix",                   generator: generateDNAHelixPoints, color: new THREE.Color('#00ff7f'), scale: getResponsiveScale(1.5, 2.5) },
+        { name: "FibonacciSphere",            generator: generateFibonacciSpherePoints, color: new THREE.Color('#ffd700'), scale: getResponsiveScale(3.0, 3.5) },
+        { name: "Nautilus",                   generator: generateNautilusPoints, color: new THREE.Color('#ff6347'), scale: getResponsiveScale(2.0, 2.0) },
+
+        // 🌀 Hypnotic Spirals
+        { name: "UlamSpiral",                   generator: generateUlamSpiralPoints, color: new THREE.Color('#00ffff'), scale: getResponsiveScale(1.0, 3.0) },
+        { name: "ArchimedeanSpiral",           generator: generateArchimedeanSpiral3D, color: new THREE.Color('#ff1493'), scale: getResponsiveScale(2.0, 2.0) },
+
+        // 🎭 Fractal & Exotic Curves
+        { name: "DragonCurve", generator: generateDragonCurve3D, color: new THREE.Color('#ff0000'), scale: getResponsiveScale(2.0, 3.0) },
+        { name: "TrefoilKnot", generator: generateTrefoilKnotPoints, color: new THREE.Color('#32cd32'), scale: getResponsiveScale(2.0, 3.0) },
+        { name: "Lissajous3D", generator: generateLissajous3D, color: new THREE.Color('#ffff00'), scale: getResponsiveScale(2.0, 3.0) },
+        
+        // 🌊 Wave Functions
+        { name: "StandingWave", generator: generateStandingWave3D, color: new THREE.Color('#00ffff'), scale: getResponsiveScale(2.0, 2) },
+        { name: "Rennard", generator: generateRennard, color: new THREE.Color('#00ff7f'), scale: getResponsiveScale(2.0, 2.5) },
+        { name: "Clifford", generator: generateCliffordPoints, color: new THREE.Color('#7fff00'), scale: getResponsiveScale(2.0, 2) },
+        { name: "Superformula", generator: generateSuperformula, color: new THREE.Color('#8a2be2'), scale: getResponsiveScale(5.0, 4.5) },
+        { name: "Seashell", generator: generateSeashellPoints, color: new THREE.Color('#ff6347'), scale: getResponsiveScale(7.0, 17.0) },
+        { name: "ThomasPoint", generator: generateThomasPoints, color: new THREE.Color('#ff0055'), scale: getResponsiveScale(2.0, 1.0) },
+        { name: "Sierpinski", generator: generateSierpinskiPoints, color: new THREE.Color('#32cd32'), scale: getResponsiveScale(2.0, 2.5) },
+
+        // 🌟 ADVANCED STRANGE ATTRACTORS
+        { name: "Sprott", generator: generateSprottPoints, color: new THREE.Color('#ff6b6b'), scale: getResponsiveScale(4.0, 5.0) },
+        { name: "Arneodo", generator: generateArneodoPoints, color: new THREE.Color('#4ecdc4'), scale: getResponsiveScale(2.0, 3.0) },
+        { name: "Rabinovich", generator: generateRabinovichPoints, color: new THREE.Color('#45b7d1'), scale: getResponsiveScale(5.0, 7.0) },
+        
+        // 🏛️ ADVANCED PARAMETRIC SURFACES
+        { name: "Helicoid", generator: generateHelicoidPoints, color: new THREE.Color('#f9ca24'), scale: getResponsiveScale(1.5, 2.0) },
+        { name: "Catenoid", generator: generateCatenoidPoints, color: new THREE.Color('#6c5ce7'), scale: getResponsiveScale(1.5, 1.5) },
+        { name: "RomanSurface", generator: generateRomanSurfacePoints, color: new THREE.Color('#a29bfe'), scale: getResponsiveScale(1.4, 2) },
+
+        // 🔥 ADVANCED FRACTALS
+        { name: "Mandelbrot3D", generator: generateMandelbrot3DPoints, color: new THREE.Color('#e17055'), scale: getResponsiveScale(1.0, 1.0) },
+        { name: "MengerSponge", generator: generateMengerSpongePoints, color: new THREE.Color('#00b894'), scale: getResponsiveScale(2.5, 4.0) },
+
+        // 🌸 EXOTIC ROSES
+        { name: "PolarRose11", generator: generatePolarRose11Points, color: new THREE.Color('#fd79a8'), scale: getResponsiveScale(2.0, 3.0) },
+        { name: "Hypotrochoid", generator: generateHypotrochoidPoints, color: new THREE.Color('#fdcb6e'), scale: getResponsiveScale(1.0, 1.0) },
+
+        // 🌊 PHYSICS SHAPES
+        { name: "MagneticField", generator: generateMagneticFieldPoints, color: new THREE.Color('#0984e3'), scale: getResponsiveScale(1.9, 3.0) },
+        { name: "QuantumOscillator", generator: generateQuantumOscillatorPoints, color: new THREE.Color('#00cec9'), scale: getResponsiveScale(1.5, 2.0) },
+
+        // // 🎭 ADVANCED KNOTS
+        { name: "HopfLink", generator: generateHopfLinkPoints, color: new THREE.Color('#e84393'), scale: getResponsiveScale(2.0, 2.0) },
+        { name: "Figure8Knot", generator: generateFigure8KnotPoints, color: new THREE.Color('#2d3436'), scale: getResponsiveScale(2.0, 2.0) },
+
+        // // 🌟 CRYSTAL STRUCTURES
+
+        // 🌈 ADVANCED WAVES
+        { name: "CylindricalWave", generator: generateCylindricalWavePoints, color: new THREE.Color('#74b9ff'), scale: getResponsiveScale(1.5, 2.0) },
+        { name: "SphericalHarmonics", generator: generateSphericalHarmonicsPoints, color: new THREE.Color('#55a3ff'), scale: getResponsiveScale(2.0, 4.0) },
+
+        // // 🎪 EXOTIC SHAPES
+        { name: "Gyroid", generator: generateGyroidPoints, color: new THREE.Color('#81ecec'), scale: getResponsiveScale(1.5, 3.0) },
+        { name: "PenroseTiling3D", generator: generatePenroseTiling3D, color: new THREE.Color('#ffeaa7'), scale: getResponsiveScale(1.5, 2.5) },
+
+        // 🔬 BIOLOGICAL STRUCTURES
+        { name: "AlphaHelix", generator: generateAlphaHelixPoints, color: new THREE.Color('#00b894'), scale: getResponsiveScale(2.0, 3.0) },
+
+        // 🌌 COSMIC SHAPES
+        { name: "GalaxySpiral", generator: generateGalaxySpiralPoints, color: new THREE.Color('#a29bfe'), scale: getResponsiveScale(3.25, 3.0) },
+        { name: "SolarCorona", generator: generateSolarCoronaPoints, color: new THREE.Color('#ffeaa7'), scale: getResponsiveScale(1.5, 3.0) },
+    ], []);
