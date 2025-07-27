@@ -9240,7 +9240,7 @@ const ParticleScene = () => {
 
 
 
-        const transitionDuration = 1, holdDuration = 4;
+        const transitionDuration = 3, holdDuration = 5;
 
 
 
