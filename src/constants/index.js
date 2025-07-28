@@ -307,27 +307,12 @@ export const projects = [
     //   demo: "https://youtube.com/your-demo-video" // A link to a demo video is great here
     }
   },
-//   {
-//     visuals: [], // Placeholder
-//     theme: ["btn-back-blue"],
-//     name: '4. AI-Powered "Segment Anything" Application',
-//     tags: ['Foundation Models', 'Meta AI (SAM)', 'Streamlit', 'TensorFlow', 'Image Segmentation'],
-//     oneLiner: "An interactive web app utilizing Meta AI's state-of-the-art Segment Anything Model (SAM) for image segmentation.",
-//     description: [
-//         "Integrated the large-scale SAM foundation model into a user-friendly Streamlit interface, allowing users to upload an image and get segmentation masks.",
-//         "Successfully managed model hosting and deployment on a cloud server, demonstrating the ability to serve large, pre-trained AI models."
-//     ],
-//     links: {
-//       github: "https://github.com/your-repo/segment-anything-app",
-//       demo: "https://your-segment-app.com"
-//     }
-//   },
   {
-    // Placeholder
-    visuals: [
-        { type: 'video', webm: sensor1_comp }
-    ],
-    theme: ["btn-back-blue"],
+      // Placeholder
+      visuals: [
+          { type: 'video', webm: sensor1_comp }
+        ],
+        theme: ["btn-back-blue"],
     name: "4. Industrial Sensor Fault Detection System",
     tags: ['MLOps', 'Flask', 'Docker', 'Azure'],
     oneLiner: "A full-stack web application to detect sensor failures in real-time, built with industrial-grade MLOps practices.",
@@ -337,10 +322,25 @@ export const projects = [
         "Leverages Continuous Deployment through Render's Git-based workflow, automatically building and deploying new versions on every push to the main branch."
     ],
     links: {
-      github: "https://github.com/Shiv-Expert2503/Sensor_Fault",
-      demo: "https://sensor-fault-0bkp.onrender.com/"
+        github: "https://github.com/Shiv-Expert2503/Sensor_Fault",
+        demo: "https://sensor-fault-0bkp.onrender.com/"
     }
-  }
+},
+  {
+    visuals: [], // Placeholder
+    theme: ["btn-back-blue"],
+    name: '5. Infinite Geometry: Real-Time GPU Morphing Engine',
+    tags: ["GPGPU", "GLSL", "Progressive Loading", "Three.js", "Sliding Window", "Performance Optimization", "React", "JavaScript", "Blender"],
+    oneLiner: "A real-time GPU engine that morphs between infinite mathematical shapes and chaotic attractors — rendered seamlessly in the browser.",
+    description: [
+        "Built a high-performance particle system that morphs fluidly across an infinite sequence of 3D shapes, chaotic attractors, and waveforms.",
+        "Powered by a custom GPGPU pipeline using FBOs and ping-pong buffers to offload physics to the GPU.",
+        "Achieved near-zero load time with dynamic asset streaming and a sliding memory window, rendering 60+ models interactively."
+    ],
+    links: {
+      demo: "https://shiv2503portfolio.netlify.app/"
+    }
+  },
 ];
 
 

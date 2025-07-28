@@ -17,7 +17,7 @@ const useResponsivePerformance = () => {
       setDeviceSpecs({
         scale: 1.5,
         uSize: 3.5,
-        textureSize: isSlowDevice ? 64 : 256,
+        textureSize: isSlowDevice ? 128 : 256,
         mouseStrength: 0.8
       });
     } else {
