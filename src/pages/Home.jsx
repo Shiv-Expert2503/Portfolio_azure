@@ -14,6 +14,7 @@ const Home = () => {
     
     // Store the message and navigate to RAG page
     localStorage.setItem('initialMessage', inputText.trim());
+    localStorage.setItem('hasVisitedRag', 'true');
     navigate('/multimodal-rag');
   };
 
@@ -27,6 +28,7 @@ const Home = () => {
   const handleSuggestionClick = (suggestionText) => {
     const cleanText = suggestionText.replace(/^[💡🚀📊]\s*/, ''); // Remove emoji and space
     localStorage.setItem('initialMessage', cleanText);
+    localStorage.setItem('hasVisitedRag', 'true');
     navigate('/multimodal-rag');
   };
 
