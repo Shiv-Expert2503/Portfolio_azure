@@ -304,3 +304,49 @@ main {
 .scroll-content .block-container { /* This makes your skill icons clickable */
   pointer-events: auto;
 }
+
+/* Prompt Box Styles */
+.prompt-container {
+  position: relative;
+  z-index: 10;
+}
+
+.prompt-box {
+  transition: all 0.3s ease;
+  box-shadow: 0 20px 60px rgba(0, 198, 255, 0.1);
+}
+
+.prompt-box:hover {
+  box-shadow: 0 25px 80px rgba(0, 198, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.prompt-box:focus-within {
+  border-color: rgba(0, 198, 255, 0.5);
+  box-shadow: 0 25px 80px rgba(0, 198, 255, 0.2);
+}
+
+.send-button {
+  min-width: 48px;
+  min-height: 48px;
+  transition: all 0.2s ease;
+}
+
+.send-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+}
+
+.send-button:active {
+  transform: scale(0.95);
+}
+
+.suggestion-pill {
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.suggestion-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 198, 255, 0.1);
+}

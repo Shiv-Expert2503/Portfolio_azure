@@ -13,9 +13,55 @@ const Home = () => {
           <h1 className='hero-title'>
             Hi, I'm <span className='blue-gradient_text'>Shivansh</span> 👋
           </h1>
-          <p className='hero-subtitle' style={{ color: '#00ffffff', fontWeight: 'bold' }}>
-            I build and deploy advanced AI models that solve challenges in science and engineering.
-          </p>
+          
+          {/* AI Chat Prompt Box */}
+          <div className="prompt-container max-w-3xl mx-auto mt-8">
+            <div className="prompt-box bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-1 shadow-2xl">
+              <div className="flex items-center gap-3 p-4">
+                <div className="flex-1">
+                  <div className="relative">
+                    <input 
+                      type="text" 
+                      placeholder="Ask me anything about AI, ML, or my projects..."
+                      className="w-full bg-transparent text-white placeholder-white/60 text-lg border-none outline-none resize-none"
+                      style={{ fontFamily: 'inherit' }}
+                    />
+                  </div>
+                </div>
+                <button className="send-button bg-blue-600 hover:bg-blue-700 transition-colors duration-200 rounded-xl p-3 flex items-center justify-center">
+                  <svg 
+                    width="20" 
+                    height="20" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                    className="text-white"
+                  >
+                    <path d="M22 2L11 13" />
+                    <path d="M22 2L15 22L11 13L2 9L22 2Z" />
+                  </svg>
+                </button>
+              </div>
+              
+              {/* Suggested prompts */}
+              <div className="px-4 pb-4">
+                <div className="flex flex-wrap gap-2">
+                  <button className="suggestion-pill bg-white/5 hover:bg-white/10 border border-white/20 rounded-full px-4 py-2 text-sm text-white/80 hover:text-white transition-all duration-200">
+                    💡 Tell me about your AI projects
+                  </button>
+                  <button className="suggestion-pill bg-white/5 hover:bg-white/10 border border-white/20 rounded-full px-4 py-2 text-sm text-white/80 hover:text-white transition-all duration-200">
+                    🚀 What technologies do you use?
+                  </button>
+                  <button className="suggestion-pill bg-white/5 hover:bg-white/10 border border-white/20 rounded-full px-4 py-2 text-sm text-white/80 hover:text-white transition-all duration-200">
+                    📊 Show me your experience
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         
         {/* ✅ REMOVED: Canvas and ParticleScene - now handled in App.jsx */}
