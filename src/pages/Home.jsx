@@ -1,10 +1,35 @@
 
 // background scrolling      ===========================100% working
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { skills, experiences } from '../constants';
 import CTA from '../components/CTA';
 
 const Home = () => {
+  const [inputText, setInputText] = useState('');
+  const navigate = useNavigate();
+
+  const handleSendMessage = () => {
+    if (!inputText.trim()) return;
+    
+    // Store the message and navigate to RAG page
+    localStorage.setItem('initialMessage', inputText.trim());
+    navigate('/multimodal-rag');
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
+
+  const handleSuggestionClick = (suggestionText) => {
+    const cleanText = suggestionText.replace(/^[💡🚀📊]\s*/, ''); // Remove emoji and space
+    localStorage.setItem('initialMessage', cleanText);
+    navigate('/multimodal-rag');
+  };
+
   return (
     <>
       {/* --- Hero Section (Full Screen Animation) --- */}
@@ -15,20 +40,26 @@ const Home = () => {
           </h1>
           
           {/* AI Chat Prompt Box */}
-          <div className="prompt-container max-w-3xl mx-auto mt-8">
+          <div className="prompt-container max-w-5xl mx-auto mt-8">
             <div className="prompt-box bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-1 shadow-2xl">
               <div className="flex items-center gap-3 p-4">
                 <div className="flex-1">
                   <div className="relative">
                     <input 
                       type="text" 
+                      value={inputText}
+                      onChange={(e) => setInputText(e.target.value)}
+                      onKeyPress={handleKeyPress}
                       placeholder="Ask me anything about AI, ML, or my projects..."
                       className="w-full bg-transparent text-white placeholder-white/60 text-lg border-none outline-none resize-none"
                       style={{ fontFamily: 'inherit' }}
                     />
                   </div>
                 </div>
-                <button className="send-button bg-blue-600 hover:bg-blue-700 transition-colors duration-200 rounded-xl p-3 flex items-center justify-center">
+                <button 
+                  onClick={handleSendMessage}
+                  className="send-button bg-blue-600 hover:bg-blue-700 transition-colors duration-200 rounded-xl p-3 flex items-center justify-center"
+                >
                   <svg 
                     width="20" 
                     height="20" 
@@ -49,13 +80,22 @@ const Home = () => {
               {/* Suggested prompts */}
               <div className="px-4 pb-4">
                 <div className="flex flex-wrap gap-2">
-                  <button className="suggestion-pill bg-white/5 hover:bg-white/10 border border-white/20 rounded-full px-4 py-2 text-sm text-white/80 hover:text-white transition-all duration-200">
+                  <button 
+                    onClick={() => handleSuggestionClick('💡 Tell me about your AI projects')}
+                    className="suggestion-pill bg-white/5 hover:bg-white/10 border border-white/20 rounded-full px-4 py-2 text-sm text-white/80 hover:text-white transition-all duration-200"
+                  >
                     💡 Tell me about your AI projects
                   </button>
-                  <button className="suggestion-pill bg-white/5 hover:bg-white/10 border border-white/20 rounded-full px-4 py-2 text-sm text-white/80 hover:text-white transition-all duration-200">
+                  <button 
+                    onClick={() => handleSuggestionClick('🚀 What technologies do you use?')}
+                    className="suggestion-pill bg-white/5 hover:bg-white/10 border border-white/20 rounded-full px-4 py-2 text-sm text-white/80 hover:text-white transition-all duration-200"
+                  >
                     🚀 What technologies do you use?
                   </button>
-                  <button className="suggestion-pill bg-white/5 hover:bg-white/10 border border-white/20 rounded-full px-4 py-2 text-sm text-white/80 hover:text-white transition-all duration-200">
+                  <button 
+                    onClick={() => handleSuggestionClick('📊 Show me your experience')}
+                    className="suggestion-pill bg-white/5 hover:bg-white/10 border border-white/20 rounded-full px-4 py-2 text-sm text-white/80 hover:text-white transition-all duration-200"
+                  >
                     📊 Show me your experience
                   </button>
                 </div>

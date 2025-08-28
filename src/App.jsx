@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 
 import Navbar from "./components/navbar";
 import ParticleScene from "./components/ParticleScene";
-import { Home, About, Projects, Contact } from "./pages";
+import { Home, About, Projects, Contact, Rag } from "./pages";
 
 const App = () => {
   return (
@@ -30,6 +30,7 @@ const App = () => {
             <Route path='/about' element={<About />} />
             <Route path='/projects' element={<Projects />} />
             <Route path='/contact' element={<Contact />} />
+            <Route path='/multimodal-rag' element={<Rag />} />
           </Routes>
         </Router>
       </div>

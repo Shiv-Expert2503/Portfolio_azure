@@ -350,3 +350,13 @@ main {
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(0, 198, 255, 0.1);
 }
+
+/* RAG Page specific styles */
+.rag-page {
+  background: #000000;
+  min-height: 100vh;
+}
+
+.rag-page .canvas-container {
+  display: none; /* Hide the particle background on RAG page */
+}
