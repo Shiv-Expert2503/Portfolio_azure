@@ -93,7 +93,7 @@ const Rag = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Chat Container */}
-      <div className="max-w-2xl mx-auto px-4 pt-24 pb-6 flex flex-col h-screen">
+      <div className="rag-chat-container max-w-2xl mx-auto px-4 pt-32 sm:pt-28 pb-6 flex flex-col h-screen">
         {/* Messages Area */}
         <div className="flex-1 overflow-y-auto space-y-4 mb-4">
           {messages.length === 0 ? (

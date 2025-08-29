@@ -370,3 +370,15 @@ main {
 .message-spacing {
   margin-bottom: 1.5rem;
 }
+
+/* Mobile-specific RAG page fixes */
+@media (max-width: 640px) {
+  .rag-chat-container {
+    padding-top: 8rem; /* Increased padding for mobile */
+  }
+  
+  .header {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}
