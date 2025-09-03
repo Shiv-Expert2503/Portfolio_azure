@@ -382,3 +382,27 @@ main {
     padding-bottom: 1rem;
   }
 }
+
+/* Custom scrollbar styling for RAG page */
+.rag-chat-container .overflow-y-auto {
+  /* Custom scrollbar for webkit browsers */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.rag-chat-container .overflow-y-auto::-webkit-scrollbar {
+  width: 8px;
+}
+
+.rag-chat-container .overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.rag-chat-container .overflow-y-auto::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.rag-chat-container .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
