@@ -1,25 +1,43 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-// --- Helper component to render text with inline image filenames ---
-const MessageContent = ({ text }) => {
+// The URL of your local Python backend API
+const API_URL = "http://localhost:8000/ask"; 
+
+// --- A smart component to render text and images inline ---
+const MessageContent = ({ text, imageUrls = [] }) => {
+  // Create a map of filename -> full URL for easy and fast lookup
+  const imageUrlMap = imageUrls.reduce((map, url) => {
+    const filename = url.split('/').pop();
+    map[filename] = url;
+    return map;
+  }, {});
+
+  // This regex finds all potential image filenames in the text
   const imagePattern = /([a-zA-Z0-9_\-]+\.(?:png|jpg|jpeg))\b/g;
   const parts = text.split(imagePattern);
 
   return (
-    <p className="whitespace-pre-wrap">
+    <div className="whitespace-pre-wrap">
       {parts.map((part, index) => {
-        if (part.match(imagePattern)) {
+        // Check if the current part is a filename AND if we have a valid URL for it
+        if (part.match(imagePattern) && imageUrlMap[part]) {
           return (
-            <strong key={index} className="text-blue-400 font-semibold">
-              {' '}(Image: {part}){' '}
-            </strong>
+            <img 
+              key={index} 
+              src={imageUrlMap[part]} 
+              alt={part}
+              // Tailwind classes for beautiful, responsive images
+              className="max-w-full h-auto rounded-lg my-4 border border-white/20" 
+            />
           );
         }
-        return part;
+        // Otherwise, it's just plain text
+        return <span key={index}>{part}</span>;
       })}
-    </p>
+    </div>
   );
 };
+
 
 // --- Main RAG Page Component ---
 const Rag = () => {
@@ -27,7 +45,6 @@ const Rag = () => {
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
-  const API_URL = "http://localhost:8000/ask";
 
   // Effect for loading initial/saved messages
   useEffect(() => {
@@ -35,10 +52,10 @@ const Rag = () => {
     const savedMessages = localStorage.getItem('ragChatHistory');
     const initialMessage = localStorage.getItem('initialMessage');
 
-    if (savedMessages) {
+    if (savedMessages && JSON.parse(savedMessages).length > 0) {
       setMessages(JSON.parse(savedMessages));
     } else if (initialMessage) {
-      handleSendMessage(initialMessage);
+      handleSendMessage(initialMessage); // Automatically send the first message
       localStorage.removeItem('initialMessage');
     }
   }, []);
@@ -57,29 +74,44 @@ const Rag = () => {
 
   // Main function to handle sending a message
   const handleSendMessage = async (messageText = inputText) => {
-    if (!messageText.trim()) return;
+    const trimmedText = messageText.trim();
+    if (!trimmedText || isLoading) return;
 
-    const userMessage = { id: Date.now(), type: 'user', content: messageText.trim() };
+    const userMessage = { id: Date.now(), type: 'user', content: trimmedText };
     setMessages(prev => [...prev, userMessage]);
     setInputText('');
     setIsLoading(true);
 
     try {
+      // This is the REAL API call to your Python backend
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question: messageText.trim() })
+        body: JSON.stringify({ question: trimmedText })
       });
 
-      if (!response.ok) throw new Error(`API Error: ${response.statusText}`);
+      if (!response.ok) {
+        throw new Error(`API Error: ${response.statusText}`);
+      }
       
       const data = await response.json();
-      const assistantMessage = { id: Date.now() + 1, type: 'assistant', content: data.answer || "Empty response from server." };
+      
+      // The API now returns 'answer' and 'images'
+      const assistantMessage = {
+        id: Date.now() + 1,
+        type: 'assistant',
+        content: data.answer || "I received a response, but it was empty.",
+        imageUrls: data.images || [] // Store the image URLs
+      };
       setMessages(prev => [...prev, assistantMessage]);
-
+      
     } catch (error) {
       console.error("Error fetching from API:", error);
-      const errorMessage = { id: Date.now() + 1, type: 'assistant', content: "Sorry, I'm having trouble connecting. Is the local Python server running?" };
+      const errorMessage = {
+        id: Date.now() + 1,
+        type: 'assistant',
+        content: "Sorry, I'm having trouble connecting. Please make sure the local Python server is running.",
+      };
       setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
@@ -98,30 +130,20 @@ const Rag = () => {
     }
   };
 
-  // --- THIS IS THE CORRECTED JSX STRUCTURE ---
+  // The JSX structure for the page
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
       <div className="rag-chat-container h-screen pt-32 sm:pt-28 pb-6 flex flex-col">
-        
-        {/* Full-width scrolling container */}
         <div className="flex-1 overflow-y-auto mb-4">
-          {/* Inner container to center messages */}
           <div className="max-w-5xl mx-auto px-4 space-y-4">
-            {messages.length === 0 ? (
-              <div className="text-center text-white/60 mt-20">
-                <h2 className="text-xl mb-4">Welcome to my AI Assistant!</h2>
-                <p>Start a conversation by typing your message below.</p>
-              </div>
-            ) : (
-              messages.map((message) => (
-                <div key={message.id} className={`flex mb-4 ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[90%] p-4 rounded-2xl text-base leading-relaxed ${message.type === 'user' ? 'bg-blue-600 text-white' : 'bg-white/10 text-white border border-white/20'}`}>
-                    <MessageContent text={message.content} />
-                  </div>
+            {messages.map((message) => (
+              <div key={message.id} className={`flex mb-4 ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+                <div className={`max-w-[90%] p-4 rounded-2xl text-base leading-relaxed ${message.type === 'user' ? 'bg-blue-600 text-white' : 'bg-white/10 text-white border border-white/20'}`}>
+                  {/* Use the smart renderer for all messages */}
+                  <MessageContent text={message.content} imageUrls={message.imageUrls} />
                 </div>
-              ))
-            )}
-            
+              </div>
+            ))}
             {isLoading && (
               <div className="flex justify-start">
                 <div className="bg-white/10 border border-white/20 rounded-2xl p-4">
@@ -133,13 +155,10 @@ const Rag = () => {
                 </div>
               </div>
             )}
-            
             <div ref={messagesEndRef} />
           </div>
         </div>
-
-        {/* Input container, also centered to align with messages */}
-        <div className="max-w-5xl mx-auto w-full px-4"> 
+        <div className="max-w-5xl mx-auto w-full px-4">
           <div className="border-t border-white/10 pt-4">
             <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-1">
               <div className="flex items-end gap-2 p-3">
