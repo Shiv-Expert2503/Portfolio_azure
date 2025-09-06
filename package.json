@@ -14,11 +14,15 @@
     "@react-spring/three": "^9.7.3",
     "@react-three/drei": "^9.92.7",
     "@react-three/fiber": "^8.15.12",
+    "katex": "^0.16.22",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-intersection-observer": "^9.16.0",
+    "react-markdown": "^10.1.0",
     "react-router-dom": "^6.21.1",
-    "react-vertical-timeline-component": "^3.6.0"
+    "react-vertical-timeline-component": "^3.6.0",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
