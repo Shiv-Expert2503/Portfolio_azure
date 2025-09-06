@@ -1,9 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
-// The URL of your local Python backend API
-const API_URL = "http://localhost:8000/ask"; 
+// The API URL is now correctly read from your .env file
+const API_URL = import.meta.env.VITE_API_URL + "/ask";
 
-// --- A smart component to render text and images inline ---
+// --- A smart component to render text, images, and Markdown ---
 const MessageContent = ({ text, imageUrls = [] }) => {
   // Create a map of filename -> full URL for easy and fast lookup
   const imageUrlMap = imageUrls.reduce((map, url) => {
@@ -17,10 +20,10 @@ const MessageContent = ({ text, imageUrls = [] }) => {
   const parts = text.split(imagePattern);
 
   return (
-    <div className="whitespace-pre-wrap">
+    <div className="prose prose-invert prose-p:my-2 prose-headings:my-4 max-w-full">
       {parts.map((part, index) => {
-        // Check if the current part is a filename AND if we have a valid URL for it
         if (part.match(imagePattern) && imageUrlMap[part]) {
+          // If the part is an image filename and we have a valid URL for it, render an <img> tag
           return (
             <img 
               key={index} 
@@ -31,8 +34,16 @@ const MessageContent = ({ text, imageUrls = [] }) => {
             />
           );
         }
-        // Otherwise, it's just plain text
-        return <span key={index}>{part}</span>;
+        // Otherwise, render the text part using ReactMarkdown
+        return (
+          <ReactMarkdown
+            key={index}
+            remarkPlugins={[remarkMath]}
+            rehypePlugins={[rehypeKatex]}
+          >
+            {part}
+          </ReactMarkdown>
+        );
       })}
     </div>
   );
@@ -45,7 +56,7 @@ const Rag = () => {
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
-
+  
   // Effect for loading initial/saved messages
   useEffect(() => {
     localStorage.setItem('hasVisitedRag', 'true');
@@ -110,7 +121,7 @@ const Rag = () => {
       const errorMessage = {
         id: Date.now() + 1,
         type: 'assistant',
-        content: "Sorry, I'm having trouble connecting. Please make sure the local Python server is running.",
+        content: "Sorry, I'm having trouble connecting. Please make sure the backend server is running.",
       };
       setMessages(prev => [...prev, errorMessage]);
     } finally {
@@ -130,20 +141,22 @@ const Rag = () => {
     }
   };
 
-  // The JSX structure for the page
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
       <div className="rag-chat-container h-screen pt-32 sm:pt-28 pb-6 flex flex-col">
+        
+        {/* Full-width scrolling container */}
         <div className="flex-1 overflow-y-auto mb-4">
+          {/* Inner container to center messages */}
           <div className="max-w-5xl mx-auto px-4 space-y-4">
             {messages.map((message) => (
               <div key={message.id} className={`flex mb-4 ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div className={`max-w-[90%] p-4 rounded-2xl text-base leading-relaxed ${message.type === 'user' ? 'bg-blue-600 text-white' : 'bg-white/10 text-white border border-white/20'}`}>
-                  {/* Use the smart renderer for all messages */}
                   <MessageContent text={message.content} imageUrls={message.imageUrls} />
                 </div>
               </div>
             ))}
+            
             {isLoading && (
               <div className="flex justify-start">
                 <div className="bg-white/10 border border-white/20 rounded-2xl p-4">
@@ -155,10 +168,13 @@ const Rag = () => {
                 </div>
               </div>
             )}
+            
             <div ref={messagesEndRef} />
           </div>
         </div>
-        <div className="max-w-5xl mx-auto w-full px-4">
+
+        {/* Input container, also centered to align with messages */}
+        <div className="max-w-5xl mx-auto w-full px-4"> 
           <div className="border-t border-white/10 pt-4">
             <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-1">
               <div className="flex items-end gap-2 p-3">
