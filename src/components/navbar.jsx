@@ -18,7 +18,7 @@ const Navbar = () => {
               to="/multimodal-rag" 
               className={({ isActive }) => isActive ? 'text-blue-500' : 'text-white'}
             >
-              RAG
+              Video Generation
             </NavLink>
           )}
           <NavLink to="/projects" className={({ isActive }) => isActive ? 'text-blue-500' : 'text-white'}>
@@ -44,7 +44,7 @@ const Navbar = () => {
           to="/multimodal-rag" 
           className={({ isActive }) => isActive ? 'text-blue-500' : 'text-white'}
         >
-          RAG
+          Video Generation
         </NavLink>
       );
     }

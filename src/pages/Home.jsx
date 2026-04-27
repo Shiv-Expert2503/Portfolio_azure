@@ -1,5 +1,3 @@
-
-// background scrolling      ===========================100% working
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { skills, experiences } from '../constants';
@@ -41,8 +39,8 @@ const Home = () => {
             Hi, I'm <span className='blue-gradient_text'>Shivansh</span> 👋
           </h1>
           
-          {/* AI Chat Prompt Box */}
-          <div className="prompt-container max-w-5xl mx-auto mt-8">
+          Try Video Generation :)
+          {/* <div className="prompt-container max-w-5xl mx-auto mt-8">
             <div className="prompt-box bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-1 shadow-2xl">
               <div className="flex items-center gap-3 p-4">
                 <div className="flex-1">
@@ -79,7 +77,6 @@ const Home = () => {
                 </button>
               </div>
               
-              {/* Suggested prompts */}
               <div className="px-4 pb-4">
                 <div className="flex flex-wrap gap-2">
                   <button 
@@ -103,7 +100,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         
         {/* ✅ REMOVED: Canvas and ParticleScene - now handled in App.jsx */}
