@@ -13,14 +13,14 @@ const Navbar = () => {
     if (isOnHomePage) {
       return (
         <>
-          {hasVisitedRag && (
-            <NavLink 
-              to="/multimodal-rag" 
-              className={({ isActive }) => isActive ? 'text-blue-500' : 'text-white'}
-            >
-              Video Generation
-            </NavLink>
-          )}
+          
+          <NavLink 
+            to="/multimodal-rag" 
+            className={({ isActive }) => isActive ? 'text-blue-500' : 'text-white'}
+          >
+            Video Generation
+          </NavLink>
+          
           <NavLink to="/projects" className={({ isActive }) => isActive ? 'text-blue-500' : 'text-white'}>
             Projects
           </NavLink>
